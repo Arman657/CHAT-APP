@@ -8,7 +8,7 @@ import contactsRoutes from './routes/ContactsRoutes.js';
 import setupSocket from './socket.js';
 import messagesRoutes from './routes/MessagesRoutes.js';
 import channelRoutes from './routes/ChannelRoutes.js';
-
+import path from 'path';
 
 dotenv.config();
 
@@ -28,6 +28,8 @@ app.use("/uploads/files",express.static("uploads/files"));
 app.use(cookieParser());
 app.use(express.json());
 
+
+
 app.use("/api/auth",authRoutes);
 app.use("/api/contacts",contactsRoutes);
 app.use("/api/messages",messagesRoutes);
@@ -38,6 +40,24 @@ const server = app.listen(port,()=>{
 })
 
 setupSocket(server)
+
+
+//---------------Deployment---------------
+
+// const __dirname1 = path.resolve();
+// if(process.env.NODE_ENV === 'production'){
+//     app.use(express.static(path.join(__dirname1,'/client/dist')));
+
+//     app.get('*/', (req, res) => {
+//         res.sendFile(path.resolve(__dirname1, 'client', 'dist', 'index.html'));
+//     });
+// }else{
+//     app.get("/",(req,res)=>{
+//         res.send("API is Running Successfully")
+//     })
+// }
+
+//---------------Deployment---------------
 
 // mongoose.connect(databaseURL).then(()=>console.log('DB Connection Successfully'));
 const connectDB = async() => {
@@ -52,3 +72,7 @@ const connectDB = async() => {
 }
 
 connectDB()
+
+
+
+
